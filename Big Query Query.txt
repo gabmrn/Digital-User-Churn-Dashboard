@@ -1,0 +1,60 @@
+-- There are two ways of making the table by querying to create table (select the datatype for each columns)
+-- before importing or we can simply just import the dataset by clicking on +ADD on bigquery
+-- But it is recommended to just simply importing the dataset (jump right on to Alter Table Step)
+
+-- Create Table
+CREATE TABLE bankmuamalatbi.PBIBI.Customers(
+  CustomerID INT64,
+  FirstName STRING,
+  LastName STRING,
+  CustomerEmail STRING,
+  CustomerPhone STRING,
+  CustomerAddress	STRING,
+  CustomerCity STRING,
+  CustomerState	STRING,
+  CustomerZip INT64
+);
+
+CREATE TABLE bankmuamalatbi.PBIBI.Orders(
+  OrderID INT64,
+  Date DATE,
+  CustomerID INT64,
+  ProdNumber STRING,
+  Quantity INT64
+);
+
+CREATE TABLE bankmuamalatbi.PBIBI.ProductCategory(
+  CategoryID INT64,
+  CategoryName STRING,
+  CategoryAbbreviation STRING
+);
+
+CREATE TABLE bankmuamalatbi.PBIBI.Products(
+  ProdNumber STRING,
+  ProdName STRING,
+  CategoryID INT64,
+  Price FLOAT
+);
+
+
+
+-- Alter Table
+ALTER TABLE bankmuamalatbi.PBIBI.Customers ADD PRIMARY KEY(CustomerID) NOT ENFORCED;
+
+ALTER TABLE bankmuamalatbi.PBIBI.Orders ADD PRIMARY KEY(OrderID) NOT ENFORCED;
+
+ALTER TABLE bankmuamalatbi.PBIBI.ProductCategoryADD PRIMARY KEY(CategoryID) NOT ENFORCED;
+
+ALTER TABLE bankmuamalatbi.PBIBI.Products ADD PRIMARY KEY(ProdNumber) NOT ENFORCED;
+
+ALTER TABLE bankmuamalatbi.PBIBI.Orders ADD FOREIGN KEY(ProdNumber) REFERENCES 
+bankmuamalatbi.PBIBI.Products(ProdNumber) NOT ENFORCED;
+
+ALTER TABLE bankmuamalatbi.PBIBI.Orders ADD FOREIGN KEY(CustomerID) REFERENCES 
+bankmuamalatbi.PBIBI.Products(CustomerID) NOT ENFORCED;
+
+ALTER TABLE bankmuamalatbi.PBIBI.Products ADD FOREIGN KEY(CategoryID) REFERENCES 
+bankmuamalatbi.PBIBI.ProductCategory(CategoryID) NOT ENFORCED;
+
+ALTER TABLE bankmuamalatbi.PBIBI.Orders ADD FOREIGN KEY(ProdNumber) REFERENCES 
+bankmuamalatbi.PBIBI.Products(ProdNumber) NOT ENFORCED;
